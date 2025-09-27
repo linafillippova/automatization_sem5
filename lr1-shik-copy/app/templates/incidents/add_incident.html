@@ -1,0 +1,30 @@
+<!-- app/templates/incidents/add_incident.html -->
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Добавить новое происшествие</h2>
+    <form method="POST">
+        <div>
+            <label for="reg_number">Регистрационный номер:</label>
+            <input type="text" id="reg_number" name="reg_number" required>
+        </div>
+        <div>
+            <label for="short_description">Краткая фабула:</label>
+            <input type="text" id="short_description" name="short_description" required>
+        </div>
+        <div>
+            <label for="decision_status">Решение:</label>
+            <select id="decision_status" name="decision_status">
+                <option value="">-- Выберите решение --</option>
+                <option value="Отказано в возбуждении">Отказано в возбуждении</option>
+                <option value="Уголовное дело возбуждено">Уголовное дело возбуждено</option>
+                <option value="Отправлено по территориальному признаку">Отправлено по территориальному признаку</option>
+            </select>
+        </div>
+        <div>
+            <label for="case_reg_number">Регистрационный номер дела (если возбуждено):</label>
+            <input type="text" id="case_reg_number" name="case_reg_number">
+        </div>
+        <button type="submit">Добавить происшествие</button>
+    </form>
+{% endblock %}

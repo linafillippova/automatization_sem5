@@ -1,0 +1,79 @@
+<!-- app/templates/incidents/edit_incident_participants.html -->
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Редактировать участников происшествия: {{ incident.reg_number }} - {{ incident.short_description }}</h2>
+    <form method="POST">
+        <div>
+            <p>Текущие участники:</p>
+            <ul>
+                {% for ip in incident.incident_participants %}
+                    <li>{{ ip.person.last_name }} {{ ip.person.first_name }} - {{ ip.role }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <h3>Добавить/изменить участников:</h3>
+            <p>Выберите лицо и его роль. Если лицо уже присутствует, его роль будет изменена.</p>
+            {% for person in all_persons %}
+                <div style="margin-bottom: 10px;">
+                    <label>
+                        <input type="checkbox" name="participants" value="{{ person.id }}:{{ current_participant_roles.get(person.id, 'Потерпевший') }}"
+                               {% if person.id in current_participant_roles %}checked{% endif %}>
+                        {{ person.last_name }} {{ person.first_name }}
+                    </label>
+                    <select name="participants_role_{{ person.id }}" {% if person.id not in current_participant_roles %}disabled{% endif %}>
+                        <option value="Виновник" {% if current_participant_roles.get(person.id) == 'Виновник' %}selected{% endif %}>Виновник</option>
+                        <option value="Потерпевший" {% if current_participant_roles.get(person.id) == 'Потерпевший' %}selected{% endif %}>Потерпевший</option>
+                        <option value="Подозреваемый" {% if current_participant_roles.get(person.id) == 'Подозреваемый' %}selected{% endif %}>Подозреваемый</option>
+                        <option value="Свидетель" {% if current_participant_roles.get(person.id) == 'Свидетель' %}selected{% endif %}>Свидетель</option>
+                    </select>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- JavaScript для динамического обновления value при выборе роли -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const checkboxes = document.querySelectorAll('input[name="participants"]');
+                checkboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        const personId = this.value.split(':')[0];
+                        const roleSelect = document.querySelector(`select[name="participants_role_${personId}"]`);
+                        if (roleSelect) {
+                            roleSelect.disabled = !this.checked;
+                            if (this.checked) {
+                                this.value = `${personId}:${roleSelect.value}`;
+                            } else {
+                                this.value = `${personId}:`; // Очищаем значение, если чекбокс снят
+                            }
+                        }
+                    });
+
+                    // Инициализация при загрузке страницы
+                    const personId = this.value.split(':')[0];
+                    const roleSelect = document.querySelector(`select[name="participants_role_${personId}"]`);
+                    if (roleSelect) {
+                         if (this.checked) {
+                            this.value = `${personId}:${roleSelect.value}`;
+                        }
+                    }
+                });
+
+                // Обработчик для изменения значения в select, чтобы обновить value чекбокса
+                const roleSelects = document.querySelectorAll('select[name^="participants_role_"]');
+                roleSelects.forEach(select => {
+                    select.addEventListener('change', function() {
+                        const personId = this.name.split('_')[2];
+                        const checkbox = document.querySelector(`input[name="participants"][value^="${personId}:"]`);
+                        if (checkbox) {
+                            checkbox.value = `${personId}:${this.value}`;
+                        }
+                    });
+                });
+            });
+        </script>
+
+        <button type="submit">Сохранить изменения участников</button>
+    </form>
+{% endblock %}
