@@ -1,0 +1,12 @@
+<!-- app/templates/index.html -->
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Добро пожаловать в систему учета происшествий!</h2>
+    {% if current_user.is_authenticated %}
+        <p>Теперь вам доступны функции системы!</p>
+    {% else %}
+         <p>Для доступа к функциям системы авторизуйтесь: <a href="{{ url_for('routes.login') }}">Войти</a></p>
+    {% endif %}
+
+{% endblock %}
