@@ -2,3 +2,4 @@
   { "pattern": "sha384-", "allow": true },
   { "pattern": "SECRET_KEY", "allow": true }
 ]
+#haha
