@@ -1,4 +1,5 @@
-[
-  { "pattern": "sha384-", "allow": true },
-  { "pattern": "SECRET_KEY", "allow": true }
-]
+{
+  "ignore_sri": "sha384-",
+  "ignore_secret_key": "SECRET_KEY"
+}
+
