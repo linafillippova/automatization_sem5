@@ -11,7 +11,8 @@ app = Flask(__name__)
 bootstrap = Bootstrap(app)
 
 # Конфигурация базы данных
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+os.path.join(basedir,'instance','app.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', '3266a513ac62f8c4be0670900e7fd71342a62f0fc685d900c38985938f49ca39')
 
@@ -51,4 +52,4 @@ def create_app():
 if __name__ == '__main__':
     app = create_app()
 
-    app.run(debug=False)
+    app.run(host="0.0.0.0", port=5000, debug=False)
