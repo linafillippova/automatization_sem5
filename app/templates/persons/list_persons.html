@@ -14,6 +14,7 @@
                 <th>Рег. номер</th>
                 <th>ФИО</th>
                 <th>Адрес</th>
+                <th>Телефон</th> <!-- новый столбец -->
                 <th>Кол-во судимостей</th>
                 <th>Действия</th>
             </tr>
@@ -24,6 +25,7 @@
                     <td>{{ person.reg_number }}</td>
                     <td>{{ person.last_name }} {{ person.first_name }} {{ person.patronymic or '' }}</td>
                     <td>{{ person.address or 'Не указан' }}</td>
+                    <td>{{ person.phone or 'Не указан' }}</td> <!-- новое поле -->
                     <td>{{ person.convictions_count }}</td>
                     {% if current_user.is_authenticated %}
                         {% if current_user.role.name == 'administrator' %}

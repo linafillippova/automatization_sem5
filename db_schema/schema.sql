@@ -19,7 +19,7 @@ CREATE TABLE person (
 	last_name VARCHAR(100) NOT NULL, 
 	patronymic VARCHAR(100), 
 	address VARCHAR(255), 
-	convictions_count INTEGER, 
+	convictions_count INTEGER, phone VARCHAR(20), 
 	PRIMARY KEY (id), 
 	UNIQUE (reg_number)
 );

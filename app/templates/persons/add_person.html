@@ -24,6 +24,10 @@
             <label for="address">Адрес:</label>
             <input type="text" id="address" name="address">
         </div>
+        <div class="form-group">
+            <label for="phone">Телефон</label>
+            <input type="text" class="form-control" id="phone" name="phone" value="{{ person.phone if person else '' }}">
+        </div>
         <div>
             <label for="convictions_count">Количество судимостей:</label>
             <input type="number" id="convictions_count" name="convictions_count" value="0">

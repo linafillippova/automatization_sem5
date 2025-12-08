@@ -115,6 +115,7 @@ def add_person():
         last_name = request.form['last_name']
         patronymic = request.form.get('patronymic')
         address = request.form.get('address')
+        phone = request.form.get('phone')  # новое поле
         convictions_count = int(request.form.get('convictions_count', 0))
 
         person = Person(
@@ -141,6 +142,7 @@ def edit_person(person_id):
         person.last_name = request.form['last_name']
         person.patronymic = request.form.get('patronymic')
         person.address = request.form.get('address')
+        person.phone = request.form.get('phone')  # редактируем новое поле
         person.convictions_count = int(request.form.get('convictions_count', 0))
         db.session.commit()
         return redirect(url_for('routes.list_persons'))

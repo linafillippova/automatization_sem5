@@ -41,6 +41,7 @@ class Person(db.Model):
     last_name = db.Column(db.String(100), nullable=False)
     patronymic = db.Column(db.String(100))
     address = db.Column(db.String(255))
+    phone = db.Column(db.String(20))  # новое поле
     convictions_count = db.Column(db.Integer, default=0)
 
     # Связь с IncidentPerson
