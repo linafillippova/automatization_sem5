@@ -124,6 +124,7 @@ def add_person():
             last_name=last_name,
             patronymic=patronymic,
             address=address,
+            phone=phone,
             convictions_count=convictions_count
         )
         db.session.add(person)
